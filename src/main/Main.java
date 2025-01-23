@@ -1,9 +1,9 @@
 package main;
 
-import core.Bank;
-import core.Client;
-import core.Provider;
-import core.Store;
+import core.services.Bank;
+import core.services.Client;
+import core.services.Provider;
+import core.services.Store;
 
 public class Main {
 
