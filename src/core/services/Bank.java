@@ -6,7 +6,7 @@ import estorePojo.exceptions.UnknownAccountException;
 
 // Service
 
-public class Bank {
+public class Bank implements IBank {
 
 	private Account estore;
 	private Account anne, bob;
@@ -24,18 +24,19 @@ public class Bank {
 		bob.setAmount(100);
 	}
 
+	@Override
 	public void transfert(String from, String to, double amount)
 			throws InsufficientBalanceException, UnknownAccountException {
 		Account Afrom = null, Ato = null;
 
-		if (from.equals("E-Store"))
+		if (from.equals("E-IStore"))
 			Afrom = estore;
 		if (from.equals("Anne"))
 			Afrom = anne;
 		if (from.equals("Bob"))
 			Afrom = bob;
 
-		if (to.equals("E-Store"))
+		if (to.equals("E-IStore"))
 			Ato = estore;
 		if (to.equals("Anne"))
 			Ato = anne;

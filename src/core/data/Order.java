@@ -1,6 +1,6 @@
 package core.data;
 
-import core.services.Client;
+import core.services.IClient;
 import estorePojo.exceptions.UnknownItemException;
 
 import java.util.*;
@@ -21,7 +21,7 @@ public class Order {
 	 * The index of this order.
 	 */
 	private int num;
-	private Client client;
+	private IClient client;
 	private Object item;
 	private String address;
 	private String bankAccountRef;
@@ -50,7 +50,7 @@ public class Order {
 		date = new Date();
 	}
 
-	public Order(Client client, String address, String bankAccountRef) {
+	public Order(IClient client, String address, String bankAccountRef) {
 		this();
 		this.client = client;
 		this.address = address;

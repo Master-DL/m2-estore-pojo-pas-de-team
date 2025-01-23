@@ -15,10 +15,10 @@ import java.util.Set;
 
 // Service
 
-public class Store {
+public class Store implements IStore {
+	private final IProvider provider;
+	private final IBank bank;
 
-	private Provider provider;
-	private Bank bank;
 	/**
 	 * A map of emitted orders.
 	 * keys = order keys as Integers
@@ -33,9 +33,9 @@ public class Store {
 	private Map<Object, ItemInStock> itemsInStock = new HashMap<>();
 
 	/**
-	 * Constructs a new StoreImpl
+	 * Constructs a new IStoreImpl
 	 */
-	public Store(Provider prov, Bank bk) {
+	public Store(IProvider prov, IBank bk) {
 		provider = prov;
 		bank = bk;
 	}
@@ -45,6 +45,7 @@ public class Store {
 	 * @return the price of a given item
 	 * @throws UnknownItemException
 	 */
+	@Override
 	public double getPrice(Object item) throws UnknownItemException {
 		return provider.getPrice(item);
 	}
@@ -56,6 +57,7 @@ public class Store {
 	 * directly from the store
 	 * i.e. without having to re-order it from the provider
 	 */
+	@Override
 	public boolean isAvailable(Object item, int qty)
 			throws UnknownItemException {
 
@@ -82,11 +84,12 @@ public class Store {
 	 * @return Implementation dependant.
 	 * Either a new cart at each call or the same cart updated.
 	 * @throws UnknownItemException
-	 * @throws MismatchClientCartException if the given client does not own the given cart
+	 * @throws MismatchIClientCartException if the given client does not own the given cart
 	 */
+	@Override
 	public Cart addItemToCart(
 			Cart cart,
-			Client client,
+			IClient client,
 			Object item,
 			int qty)
 			throws UnknownItemException, InvalidCartException {
@@ -115,6 +118,7 @@ public class Store {
 	 * @return the order
 	 * @throws UnknownItemException
 	 */
+	@Override
 	public Order pay(Cart cart, String address, String bankAccountRef)
 			throws
 			InvalidCartException, UnknownItemException,
@@ -162,8 +166,9 @@ public class Store {
 	 * @throws InsufficientBalanceException
 	 * @throws UnknownAccountException
 	 */
+	@Override
 	public Order oneShotOrder(
-			Client client,
+			IClient client,
 			Object item,
 			int qty,
 			String address,
@@ -250,6 +255,6 @@ public class Store {
 	// -----------------------------------------------------
 
 	public String toString() {
-		return "E-Store";
+		return "E-IStore";
 	}
 }
