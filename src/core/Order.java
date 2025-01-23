@@ -1,41 +1,48 @@
 package core;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import estorePojo.exceptions.UnknownItemException;
+
+import java.util.*;
+
+// Data
 
 public class Order {
 
-	/** The total number of orders emitted so far. */
+	/**
+	 * The total number of orders emitted so far.
+	 */
 	private static int numOrders;
-
-	/** The index of this order. */
+	/**
+	 * The date at which the ordered is issued.
+	 */
+	public Date date;
+	/**
+	 * The index of this order.
+	 */
 	private int num;
-
 	private Client client;
 	private Object item;
 	private String address;
 	private String bankAccountRef;
-
-	/** The date at which the ordered is issued. */
-	public Date date;
-
-	/** The delay for delivering the items in the order. */
+	/**
+	 * The delay for delivering the items in the order.
+	 */
 	private int delay;
 
-	/** The items currently in the order. */
+	/**
+	 * The items currently in the order.
+	 */
 	private Set<Object> items = new HashSet<>();
 
-	/** The quantities of each item ordered. key=item, value=quantity. */
-	private Map<Object,Integer> itemQuantities = new HashMap<>();
+	/**
+	 * The quantities of each item ordered. key=item, value=quantity.
+	 */
+	private Map<Object, Integer> itemQuantities = new HashMap<>();
 
-	/** The individual prices of each item ordered. key=item, value=price. */
-	private Map<Object,Double> itemPrices = new HashMap<>();
+	/**
+	 * The individual prices of each item ordered. key=item, value=price.
+	 */
+	private Map<Object, Double> itemPrices = new HashMap<>();
 
 	private Order() {
 		num = numOrders++;
@@ -51,7 +58,7 @@ public class Order {
 
 	/**
 	 * Add an item to the order.
-	 * 
+	 *
 	 * @param item
 	 * @param qty
 	 * @param price

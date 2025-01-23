@@ -1,11 +1,17 @@
 package core;
 
+// Data
+
 public class ItemInStock {
 
-	/** The total number of ItemInStock instances created. */
+	/**
+	 * The total number of ItemInStock instances created.
+	 */
 	private static int numItems;
 
-	/** The index of this item. */
+	/**
+	 * The index of this item.
+	 */
 	private int num;
 
 	private Object item;
@@ -18,7 +24,7 @@ public class ItemInStock {
 	}
 
 	public ItemInStock(Object item, int quantity, double price, Provider provider) {
-        this();
+		this();
 		this.item = item;
 		this.quantity = quantity;
 		this.price = price;
@@ -28,10 +34,10 @@ public class ItemInStock {
 	public int getQuantity() {
 		return quantity;
 	}
-	
+
 	public void changeQuantity(int qtyToAddOrRemove) {
-		if ((qtyToAddOrRemove >= 0 ) || (quantity >= -qtyToAddOrRemove)) {
-			quantity += qtyToAddOrRemove ;
+		if ((qtyToAddOrRemove >= 0) || (quantity >= -qtyToAddOrRemove)) {
+			quantity += qtyToAddOrRemove;
 		}
 	}
 
