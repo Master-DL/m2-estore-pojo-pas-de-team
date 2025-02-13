@@ -8,9 +8,7 @@ import estorePojo.exceptions.UnknownAccountException;
 import estorePojo.exceptions.UnknownItemException;
 
 public interface ILane {
-	Cart addItemToCart(Cart cart, Client client, Object item, int qty)
-			throws UnknownItemException, InvalidCartException;
+	Cart addItemToCart(Cart cart, Client client, Object item, int qty) throws UnknownItemException, InvalidCartException;
 
-	Order pay(Cart cart, String address, String bankAccountRef)
-			throws InvalidCartException, UnknownItemException, InsufficientBalanceException, UnknownAccountException;
+	Order pay(Cart cart, String address, String bankAccountRef) throws InvalidCartException, UnknownItemException, InsufficientBalanceException, UnknownAccountException;
 }

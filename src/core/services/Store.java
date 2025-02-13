@@ -24,13 +24,13 @@ public class Store implements ILane, IFastLane, IJustHaveALook {
 	 * keys = order keys as Integers
 	 * values = Order instances
 	 */
-	private Map<Integer, Order> orders = new HashMap<>();
+	private final Map<Integer, Order> orders = new HashMap<>();
 	/**
 	 * A map of items available in the stock of the store.
 	 * keys = the references of the items as Objects
 	 * values = ItemInStock instances
 	 */
-	private Map<Object, ItemInStock> itemsInStock = new HashMap<>();
+	private final Map<Object, ItemInStock> itemsInStock = new HashMap<>();
 
 	/**
 	 * Constructs a new IStoreImpl
@@ -58,18 +58,12 @@ public class Store implements ILane, IFastLane, IJustHaveALook {
 	 * i.e. without having to re-order it from the provider
 	 */
 	@Override
-	public boolean isAvailable(Object item, int qty)
-			throws UnknownItemException {
-
+	public boolean isAvailable(Object item, int qty) throws UnknownItemException {
 		if (!itemsInStock.containsKey(item))
-			throw new UnknownItemException(
-					"Item " + item +
-							" does not correspond to any known reference");
+			throw new UnknownItemException("Item " + item + " does not correspond to any known reference");
 
-		ItemInStock iis = (ItemInStock) itemsInStock.get(item);
-		boolean isAvailable = (iis.getQuantity() >= qty);
-
-		return isAvailable;
+		ItemInStock iis = itemsInStock.get(item);
+		return (iis.getQuantity() >= qty);
 	}
 
 	/**
@@ -92,8 +86,7 @@ public class Store implements ILane, IFastLane, IJustHaveALook {
 			cart = new Cart(client);
 		} else {
 			if (client != cart.getClient())
-				throw new InvalidCartException(
-						"Cart " + cart + " does not belong to " + client);
+				throw new InvalidCartException("Cart " + cart + " does not belong to " + client);
 		}
 
 		cart.addItem(item, qty);
@@ -112,13 +105,9 @@ public class Store implements ILane, IFastLane, IJustHaveALook {
 	 * @throws UnknownItemException
 	 */
 	@Override
-	public Order pay(Cart cart, String address, String bankAccountRef)
-			throws
-			InvalidCartException, UnknownItemException,
-			InsufficientBalanceException, UnknownAccountException {
+	public Order pay(Cart cart, String address, String bankAccountRef) throws InvalidCartException, UnknownItemException, InsufficientBalanceException, UnknownAccountException {
 
-		if (cart == null)
-			throw new InvalidCartException("Cart shouldn't be null");
+		if (cart == null) throw new InvalidCartException("Cart shouldn't be null");
 
 		// Create a new order
 		Order order = new Order(cart.getClient(), address, bankAccountRef);
@@ -160,16 +149,7 @@ public class Store implements ILane, IFastLane, IJustHaveALook {
 	 * @throws UnknownAccountException
 	 */
 	@Override
-	public Order oneShotOrder(
-			Client client,
-			Object item,
-			int qty,
-			String address,
-			String bankAccountRef
-	)
-			throws
-			UnknownItemException,
-			InsufficientBalanceException, UnknownAccountException {
+	public Order oneShotOrder(Client client, Object item, int qty, String address, String bankAccountRef) throws UnknownItemException, InsufficientBalanceException, UnknownAccountException {
 
 		// Create a new order
 		Order order = new Order(client, address, bankAccountRef);
@@ -198,8 +178,7 @@ public class Store implements ILane, IFastLane, IJustHaveALook {
 	 * @throws InsufficientBalanceException
 	 * @throws UnknownAccountException
 	 */
-	private void treatOrder(Order order, Object item, int qty)
-			throws UnknownItemException {
+	private void treatOrder(Order order, Object item, int qty) throws UnknownItemException {
 
 		// The number of additional item to order
 		// in case we need to place an order to the provider
@@ -218,7 +197,7 @@ public class Store implements ILane, IFastLane, IJustHaveALook {
 
 		// Check whether the item is available in the stock
 		// If not, place an order for it to the provider
-		ItemInStock iis = (ItemInStock) itemsInStock.get(item);
+		ItemInStock iis = itemsInStock.get(item);
 		if (iis == null) {
 			int quantity = qty + more;
 			delay += provider.order(item, quantity);

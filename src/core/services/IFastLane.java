@@ -6,6 +6,5 @@ import estorePojo.exceptions.UnknownAccountException;
 import estorePojo.exceptions.UnknownItemException;
 
 public interface IFastLane {
-	Order oneShotOrder(Client client, Object item, int qty, String address, String bankAccountRef)
-			throws UnknownItemException, InsufficientBalanceException, UnknownAccountException;
+	Order oneShotOrder(Client client, Object item, int qty, String address, String bankAccountRef) throws UnknownItemException, InsufficientBalanceException, UnknownAccountException;
 }

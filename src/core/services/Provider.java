@@ -8,8 +8,7 @@ import java.util.Map;
 // Service
 
 public class Provider implements IProvider {
-
-	private Map<String, Double> itemPrices = new HashMap<>();
+	private final Map<String, Double> itemPrices = new HashMap<>();
 
 	/**
 	 * Constructs a new IProviderImpl
@@ -31,7 +30,7 @@ public class Provider implements IProvider {
 		if (!itemPrices.containsKey(item))
 			throw new UnknownItemException("Item " + item + " is not an item delivered by this provider.");
 
-		Double price = (Double) itemPrices.get(item);
+		Double price = itemPrices.get(item);
 		return price.doubleValue();
 	}
 
@@ -39,8 +38,8 @@ public class Provider implements IProvider {
 	 * Emit an order for items. The provider returns the delay for delivering the
 	 * items.
 	 *
-	 * @param item  the item ordered
-	 * @param qty   the quantity ordered
+	 * @param item the item ordered
+	 * @param qty  the quantity ordered
 	 * @return the delay (in hours)
 	 */
 	@Override

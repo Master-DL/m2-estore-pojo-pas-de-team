@@ -5,7 +5,6 @@ package core.data;
 import core.services.IProvider;
 
 public class ItemInStock {
-
 	/**
 	 * The total number of ItemInStock instances created.
 	 */
@@ -14,7 +13,7 @@ public class ItemInStock {
 	/**
 	 * The index of this item.
 	 */
-	private int num;
+	private final int num;
 
 	private Object item;
 	private int quantity;
@@ -45,8 +44,7 @@ public class ItemInStock {
 
 	@Override
 	public String toString() {
-		return "ItemInStock [num=" + num + ", item=" + item + ", quantity=" + quantity + ", price=" + price
-				+ ", provider=" + provider + "]";
+		return "ItemInStock [num=" + num + ", item=" + item + ", quantity=" + quantity + ", price=" + price + ", provider=" + provider + "]";
 	}
 
 

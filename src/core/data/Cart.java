@@ -17,7 +17,7 @@ public class Cart {
 	/**
 	 * The items currently added to the cart. key=item, value=quantity.
 	 */
-	private Map<Object, Integer> items = new HashMap<>();
+	private final Map<Object, Integer> items = new HashMap<>();
 
 
 	public Cart(Client client) {
@@ -29,12 +29,12 @@ public class Cart {
 		if (items.containsKey(item)) {
 			// The item has already been put in the cart
 			// Increase the number
-			oldQty = ((Integer) items.get(item)).intValue();
+			oldQty = items.get(item);
 		}
 		items.put(item, qty + oldQty);
 	}
 
-	public Map getItems() {
+	public Map<Object, Integer> getItems() {
 		return items;
 	}
 

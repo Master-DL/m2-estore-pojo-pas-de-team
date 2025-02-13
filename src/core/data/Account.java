@@ -5,7 +5,6 @@ import estorePojo.exceptions.InsufficientBalanceException;
 // Data
 
 public class Account {
-
 	private double amount;
 	private String owner;
 
@@ -30,8 +29,7 @@ public class Account {
 	}
 
 	public void withdraw(double amount) throws InsufficientBalanceException {
-		if (this.amount < amount)
-			throw new InsufficientBalanceException(owner);
+		if (this.amount < amount) throw new InsufficientBalanceException(owner);
 		this.amount -= amount;
 	}
 
@@ -42,9 +40,7 @@ public class Account {
 	 * we should have a account number.
 	 */
 	public boolean equals(Object other) {
-		if (!(other instanceof Account))
-			return false;
-		Account otherAccount = (Account) other;
+		if (!(other instanceof Account otherAccount)) return false;
 		return (otherAccount.owner == owner);
 	}
 
