@@ -1,6 +1,6 @@
 package core.data;
 
-import core.services.IClient;
+import core.services.Client;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ public class Cart {
 	/**
 	 * The client owning the cart.
 	 */
-	private final IClient client;
+	private final Client client;
 
 	/**
 	 * The items currently added to the cart. key=item, value=quantity.
@@ -20,7 +20,7 @@ public class Cart {
 	private Map<Object, Integer> items = new HashMap<>();
 
 
-	public Cart(IClient client) {
+	public Cart(Client client) {
 		this.client = client;
 	}
 
@@ -38,7 +38,7 @@ public class Cart {
 		return items;
 	}
 
-	public IClient getClient() {
+	public Client getClient() {
 		return client;
 	}
 }

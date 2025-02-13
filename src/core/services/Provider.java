@@ -39,13 +39,12 @@ public class Provider implements IProvider {
 	 * Emit an order for items. The provider returns the delay for delivering the
 	 * items.
 	 *
-	 * @param store the store that emits the order
 	 * @param item  the item ordered
 	 * @param qty   the quantity ordered
 	 * @return the delay (in hours)
 	 */
 	@Override
-	public int order(IStore store, Object item, int qty) throws UnknownItemException {
+	public int order(Object item, int qty) throws UnknownItemException {
 
 		if (!itemPrices.containsKey(item))
 			throw new UnknownItemException("Item " + item + " is not an item delivered by this provider.");

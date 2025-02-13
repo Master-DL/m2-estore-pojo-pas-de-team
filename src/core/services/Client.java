@@ -9,18 +9,22 @@ import estorePojo.exceptions.UnknownItemException;
 
 // Service
 
-public class Client implements IClient {
-	private final IStore store;
+public class Client implements Runnable {
+	private final IJustHaveALook justHaveALook;
+	private final IFastLane fastLane;
+	private final ILane lane;
 
-	public Client(IStore s) {
-		store = s;
+	public Client(IJustHaveALook justHaveALook, IFastLane fastLane, ILane lane) {
+		this.justHaveALook = justHaveALook;
+		this.fastLane = fastLane;
+		this.lane = lane;
 	}
+
 	// -----------------------------------------------------
 	// Implementation of the Runnable interface
 	// -----------------------------------------------------
 
 	public void run() {
-
 		// Scenario 1
 		// Direct ordering of an item
 		// The scenario is run twice
@@ -49,7 +53,7 @@ public class Client implements IClient {
 	private void _scenario1(String item, int qty, String address, String account) throws UnknownItemException, InsufficientBalanceException, UnknownAccountException {
 
 		System.out.println("Ordering " + qty + " " + item + " for " + account + "...");
-		Order order = store.oneShotOrder(this, item, qty, address, account);
+		Order order = fastLane.oneShotOrder(this, item, qty, address, account);
 		System.out.println(order);
 	}
 
@@ -69,9 +73,9 @@ public class Client implements IClient {
 		Cart cart = null;
 		for (int i = 0; i < items.length; i++) {
 			System.out.println("Item: " + items[i] + ", quantity: " + qties[i]);
-			cart = store.addItemToCart(cart, this, items[i], qties[i]);
+			cart = lane.addItemToCart(cart, this, items[i], qties[i]);
 		}
-		Order order = store.pay(cart, address, account);
+		Order order = lane.pay(cart, address, account);
 		System.out.println(order);
 	}
 }

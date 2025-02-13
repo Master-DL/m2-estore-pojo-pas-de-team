@@ -15,7 +15,7 @@ import java.util.Set;
 
 // Service
 
-public class Store implements IStore {
+public class Store implements ILane, IFastLane, IJustHaveALook {
 	private final IProvider provider;
 	private final IBank bank;
 
@@ -83,17 +83,10 @@ public class Store implements IStore {
 	 * @param qty
 	 * @return Implementation dependant.
 	 * Either a new cart at each call or the same cart updated.
-	 * @throws UnknownItemException
-	 * @throws MismatchIClientCartException if the given client does not own the given cart
+	 * @throws InvalidCartException if the given client does not own the given cart
 	 */
 	@Override
-	public Cart addItemToCart(
-			Cart cart,
-			IClient client,
-			Object item,
-			int qty)
-			throws UnknownItemException, InvalidCartException {
-
+	public Cart addItemToCart(Cart cart, Client client, Object item, int qty) throws InvalidCartException {
 		if (cart == null) {
 			// If no cart is provided, create a new one
 			cart = new Cart(client);
@@ -168,7 +161,7 @@ public class Store implements IStore {
 	 */
 	@Override
 	public Order oneShotOrder(
-			IClient client,
+			Client client,
 			Object item,
 			int qty,
 			String address,
@@ -228,7 +221,7 @@ public class Store implements IStore {
 		ItemInStock iis = (ItemInStock) itemsInStock.get(item);
 		if (iis == null) {
 			int quantity = qty + more;
-			delay += provider.order(this, item, quantity);
+			delay += provider.order(item, quantity);
 			ItemInStock newItem = new ItemInStock(item, more, price, provider);
 			itemsInStock.put(item, newItem);
 		} else {
@@ -240,7 +233,7 @@ public class Store implements IStore {
 			} else {
 				// An order to the provider needs to be issued
 				int quantity = qty + more;
-				delay += provider.order(this, item, quantity);
+				delay += provider.order(item, quantity);
 				iis.changeQuantity(more);
 			}
 		}
